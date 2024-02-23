@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Diego Alonso Camargo Nateras">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal digital de servicios del Área Médica Regulatoria</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <style>
+        @font-face {
+            font-family: Junction-regular-webfont;
+            /* para cargar fuente */
+            src: url(https://cdn.jsdelivr.net/gh/Servicios-MRE/pds@main/Junction-regular-webfont.woff);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Century Gothic", sans-serif;
+            font-size: 1em;
+            background-color: #d3d3d3;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.5em;
+            font-weight: normal;
+            font-family: "Junction-regular-webfont", "Century Gothic", sans-serif;
+        }
+
+        h2 {
+            display: block;
+            margin: 0;
+            font-size: 1.25em;
+            font-weight: normal;
+            font-family: "Junction-regular-webfont", "Century Gothic", sans-serif;
+        }
+
+        p {
+            display: block;
+            margin: 0;
+        }
+
+        a:link,
+        a:visited {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        a:hover,
+        a:active {
+            color: #786b9d;
+        }
+
+        /* ----- INICIO CONFIG TOOLTIPS */
+        .tooltip {
+            text-decoration: underline;
+            text-decoration-style: dashed;
+            text-decoration-thickness: 1px;
+            text-decoration-color: #786b9d;
+            position: relative;
+            display: inline;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 220px;
+            background-color: #817F75;
+            color: #fff;
+            font-size: 0.75rem;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: 0.5s;
+            border: 1px solid #555;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .tooltip a {
+            color: inherit;
+            text-decoration: none;
+
+        }
+
+        .tooltip a:hover {
+            text-decoration: underline;
+        }
+
+        /* ----- FIN CONFIG TOOLTIPS */
+
+        /* <div> ENCABEZADO */
+        .encabezado {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background-color: rgba(27, 40, 190, 1);
+            position: fixed;
+            padding-left: 20px;
+            top: 0;
+            width: 100%;
+            height: 75px;
+            z-index: 1
+        }
+
+        /* botón para regresar arriba */
+        #myBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            font-size: 1em;
+            border: double 2px transparent;
+            outline: none;
+            background-color: #1b28be;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        #myBtn::before {
+            content: "shift";
+            font-family: 'Material Symbols Outlined';
+            font-variation-settings:
+                'FILL' 1,
+                'wght' 700,
+                'GRAD' 200,
+                'opsz' 48;
+            display: inline;
+        }
+
+        #myBtn:hover {
+            border: double 2px transparent;
+            background-image: linear-gradient(#1b28be, #1b28be), radial-gradient(circle at top left, #1b28be, #00d0a3);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        /* <div> PRINCIPAL; CONTIENE TODA LA INFORMACIÓN EXCEPTO ENCABEZADO Y PIE DE PÁGINA */
+        .cuerpo {
+            margin-top: 75px;
+            margin-left: 10vw;
+            margin-right: 10vw;
+            padding: 1em;
+            border-top: none;
+            border-left: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+            border-right: 1px solid transparent;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            background-color: #fff;
+        }
+
+        .cuerpo ul {
+            display: block;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .cuerpo li {
+            display: block;
+        }
+
+        /* ----- CONFIG CONTENEDORES DENTRO DE <div> PRINCIPAL (INTRO, MENÚ, BÚSQUEDA) */
+
+        /* INTRO */
+        /* <div> intro */
+        .contenedorintro {
+            display: block;
+            margin-bottom: 2em;
+        }
+
+        .contenedorintro h1 {
+            margin-bottom: 1.5rem;
+        }
+
+        /* MENÚS */
+        /* <div> menú */
+        .contenedormenu {
+            display: block;
+            margin-top: 3em;
+            margin-bottom: 2em;
+        }
+
+        /* config <details> + clases para animación de plegado */
+        details {
+            margin-bottom: 0.35em;
+            margin-top: 0.35em;
+            padding: 0;
+            display: block;
+            box-sizing: border-box;
+        }
+
+        .desplegable {
+            display: block;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .desplegable details {
+            display: block;
+            box-sizing: border-box;
+            margin-bottom: 0.25em;
+            margin-top: 0.25em;
+        }
+
+        /* ----- INICIA CONFIG PARA LOS DIFERENTES NIVELES DEL MENÚ
+        3 niveles:
+        1 = <summary>   
+        2 = <summary>, <a>
+        3 = <a> */
+
+        /* INICIA <summary> para nvl 1 */
+        .menu1 summary {
+            font-size: 1.2em;
+            color: #000;
+            background-color: #fff;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            padding: 0.75em;
+            cursor: pointer;
+            list-style-type: none;
+        }
+
+        .menu1 summary:hover {
+            background-color: rgba(27, 40, 190, .1);
+            border: 1px solid transparent;
+            ;
+        }
+
+        .menu1 summary:hover:focus {
+            background-color: rgba(27, 40, 190, .2);
+            border: 1px solid transparent;
+        }
+
+        .menu1 summary:focus {
+            background-color: rgba(27, 40, 190, .15);
+            border: 1px solid transparent;
+        }
+
+        .menu1 summary::before {
+            content: "folder_open";
+            color: #1b28be;
+            font-family: 'Material Symbols Outlined';
+            font-variation-settings:
+                'FILL' 1,
+                'wght' 700,
+                'GRAD' 200,
+                'opsz' 48;
+            display: inline;
+            padding-right: 5px;
+            position: relative;
+            top: 3px;
+        }
+
+        /* FIN <summary> nvl 1 */
+
+        /* INICIA <summary> para nvl 2 */
+        .menu2 summary {
+            font-size: 1.2em;
+            color: #000;
+            background-color: #fff;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            padding: 0.5em;
+            cursor: pointer;
+            list-style-type: none;
+        }
+
+        .menu2 summary:hover {
+            background-color: rgba(27, 40, 190, .1);
+            border: 1px solid transparent;
+            ;
+        }
+
+        .menu2 summary:hover:focus {
+            background-color: rgba(27, 40, 190, .2);
+            border: 1px solid transparent;
+        }
+
+        .menu2 summary:focus {
+            background-color: rgba(27, 40, 190, .15);
+            border: 1px solid transparent;
+        }
+
+        .menu2 summary::before {
+            content: "folder";
+            color: #1b28be;
+            font-family: 'Material Symbols Outlined';
+            font-variation-settings:
+                'FILL' 1,
+                'wght' 400,
+                'GRAD' 200,
+                'opsz' 48;
+            display: inline;
+            padding-left: 2em;
+            padding-right: 5px;
+            position: relative;
+            top: 3px;
+        }
+
+        /* FIN <summary> nvl 2 */
+
+        /* INICIA <a> para nvl 2 */
+        .a2 a {
+            display: block;
+            box-sizing: border-box;
+            margin-bottom: 0.25em;
+            margin-top: 0.25em;
+            font-size: 1.2em;
+            text-decoration: none;
+            color: #000;
+            background-color: #fff;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            padding: 0.5em;
+            cursor: pointer;
+            list-style-type: none;
+        }
+
+        .a2 a:hover {
+            background-color: rgba(27, 40, 190, .1);
+            border: 1px solid transparent;
+            color: #000;
+            text-decoration: underline;
+        }
+
+        .a2 a:hover:focus {
+            background-color: rgba(27, 40, 190, .2);
+            border: 1px solid transparent;
+        }
+
+        .a2 a:focus {
+            background-color: rgba(27, 40, 190, .15);
+            border: 1px solid transparent;
+        }
+
+        .a2 a::before {
+            content: "edit_document";
+            color: #1b28be;
+            font-family: 'Material Symbols Outlined';
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 200,
+                'opsz' 48;
+            display: inline-block;
+            padding-left: 2em;
+            padding-right: 5px;
+            position: relative;
+            top: 2px;
+        }
+
+        .a2 a::after {
+            content: "open_in_new";
+            color: #786b9d;
+            font-family: 'Material Symbols Outlined';
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 200,
+                'opsz' 48;
+            display: inline-block;
+            padding-left: 5px;
+            position: relative;
+            top: 2px;
+        }
+
+        /* FIN <a> nvl 2 */
+
+        /* INICIA <a> para nvl 3 */
+        .a3 a {
+            display: block;
+            box-sizing: border-box;
+            margin-bottom: 0.15em;
+            margin-top: 0.15em;
+            font-size: 1.2em;
+            text-decoration: none;
+            color: #000;
+            background-color: #fff;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            padding: 0.25em;
+            cursor: pointer;
+            list-style-type: none;
+        }
+
+        .a3 a:hover {
+            background-color: rgba(27, 40, 190, .1);
+            border: 1px solid transparent;
+            color: #000;
+            text-decoration: underline;
+        }
+
+        .a3 a:hover:focus {
+            background-color: rgba(27, 40, 190, .2);
+            border: 1px solid transparent;
+        }
+
+        .a3 a:focus {
+            background-color: rgba(27, 40, 190, .15);
+            border: 1px solid transparent;
+        }
+
+        .a3 a::before {
+            content: "edit_document";
+            color: #1b28be;
+            font-family: 'Material Symbols Outlined';
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 200,
+                'opsz' 48;
+            display: inline-block;
+            padding-left: 4em;
+            padding-right: 5px;
+            position: relative;
+            top: 2px;
+        }
+
+        .a3 a::after {
+            content: "open_in_new";
+            color: #786b9d;
+            font-family: 'Material Symbols Outlined';
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 200,
+                'opsz' 48;
+            display: inline-block;
+            padding-left: 5px;
+            position: relative;
+            top: 2px;
+        }
+
+        /* FIN <a> nvl 3 */
+
+        /* ----- FIN CONFIG PARA MENÚS */
+
+        /* BÚSQUEDA */
+        .contenedorbus {
+            margin-top: 3em;
+            margin-bottom: 3em;
+            margin-left: 5vw;
+            margin-right: 5vw;
+        }
+
+        .contenedorbus p {
+            display: block;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* config para barra de búsqueda */
+        /* barra (para el ícono de búsqueda) */
+        #barrabus {
+            width: 100%;
+            font-size: 1em;
+            padding: 12px 20px 12px 40px;
+            margin: 0;
+            border: solid 1px transparent;
+            border-radius: 3px;
+            background-image: url("https://www.w3schools.com/css/searchicon.png");
+            background-position: 10px 12px;
+            background-repeat: no-repeat;
+        }
+
+        #barrabus:focus {
+            outline: 2px dotted #786b9d;
+            outline-offset: 4px;
+        }
+
+        /* contenedor (para el borde con degradado) */
+        #contenedorbarrabus {
+            border: double 2px transparent;
+            border-radius: 5px;
+            background-image: linear-gradient(white, white), radial-gradient(circle at top left, #1b28be, #00d0a3);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        /* para ocultar/filtrar ítems de búsqueda (vinculado a función) */
+        #items {
+            display: none;
+            margin-top: 10px;
+            margin-left: 35px;
+        }
+
+        /* <a> para búsqueda (ítems) */
+        .abus a {
+            display: block;
+            box-sizing: border-box;
+            text-decoration: none;
+            color: #000;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            padding: 0.25em;
+            cursor: pointer;
+        }
+
+        .abus a:hover {
+            background-color: rgba(27, 40, 190, .1);
+            border: 1px solid transparent;
+            color: #000;
+            text-decoration: underline;
+        }
+
+        .abus a:hover:focus {
+            background-color: rgba(27, 40, 190, .2);
+            border: 1px solid transparent;
+        }
+
+        .abus a:focus {
+            background-color: rgba(27, 40, 190, .15);
+            border: 1px solid transparent;
+        }
+
+        /* <div> PIE DE PÁGINA */
+        .pp {
+            display: block;
+            margin-top: 1em;
+            margin-bottom: 2em;
+            font-size: 0.9em;
+            color: #2A2D34;
+            margin-left: 10vw;
+            margin-right: 10vw;
+            padding: 1em;
+        }
+
+        .pp details {
+            display: inline-block;
+        }
+
+        .pp summary {
+            cursor: help;
+        }
+
+        .pp summary span {
+            text-decoration: underline;
+            text-decoration-style: dashed;
+            text-decoration-thickness: 1px;
+            text-decoration-color: #786b9d;
+            font-family: "Junction-regular-webfont", "Century Gothic", sans-serif;
+            font-size: 1rem;
+        }
+
+        .pp details div {
+            display: block;
+            padding-left: 10px;
+            text-align: left;
+            width: 50vw;
+        }
+
+        .pp details p {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .pp ul {
+            display: block;
+            list-style-type: disc;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-left: 0;
+            margin-right: 0;
+            padding-left: 10px;
+        }
+
+        .pp li {
+            line-height: 1.5;
+        }
+
+        .pp .tooltiptext {
+            width: 150px;
+            margin-left: -75px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Inicio encabezado -->
+    <div class="encabezado">
+        <img src="https://cdn.jsdelivr.net/gh/Servicios-MRE/pds@main/Logo-MRE-1.png" alt="Logo CIDAT"
+            style="max-height: 60%;">
+    </div>
+    <!-- Fin encabezado -->
+
+
+    <!-- ( botón para regresar arriba + script ) -->
+    <button onclick="topFunction()" id="myBtn" title="Volver arriba"></button>
+    <script>
+        // Get the button
+        let mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 50px from the top of the document, show the button
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    <!-- Fin botón -->
+
+    <!-- Inicio <div> principal (contenedor intro + menú + búsqueda) -->
+    <div class="cuerpo">
+        <!-- Inicio <div> intro -->
+        <div class="contenedorintro">
+            <h1>Bienvenido al Portal digital de servicios del Área Médica Regulatoria</h1>
+            <p>Aquí podrá solicitar fácilmente cualquiera de nuestros servicios.</p>
+        </div>
+        <!-- Fin <div> intro -->
+
+        <!-- Inicio <div> menú -->
+        <div class="contenedormenu">
+            <h2>¿Cómo podemos ayudarle hoy?</h2>
+            <!-- Inicio primer <details> = SERVICIOS MÉDICO REGULATORIOS -->
+            <details class="menu1">
+                <summary>Servicios médico-regulatorios</summary>
+                <div class="desplegable">
+                    <!-- Menú PNO 001 -->
+                    <details class="menu2 a3">
+                        <summary>Evaulaciones médicas de producto</summary>
+                        <div class="desplegable">
+                            <ul>
+                                <li><a href="https://forms.gle/soZ5LvT7iEAMVXTC7">One Page (amplio y reducido)</a></li>
+                                <li><a href="https://forms.gle/soZ5LvT7iEAMVXTC7">Opportunity Evaluation</a></li>
+                                <li><a href="https://forms.gle/soZ5LvT7iEAMVXTC7">High level (evaluaciones exprés)</a></li>
+                            </ul>
+                        </div>
+                    </details>
+                    <!-- Menú PNO 002 -->
+                    <details class="menu2 a3">
+                        <summary>Justificaciones</summary>
+                        <div class="desplegable">
+                            <ul>
+                                <li><a href="#">Modificación de textos regulados</a></li>
+                                <li><a href="#">Modificación a las condiciones de venta o suministro al público</a></li>
+                                <li><a href="#">Modificación a la presentación y al contenido de los envases</a></li>
+                                <li><a href="#">Modificación por cambio de indicación terapéutica</a></li>
+                                <li><a href="#">Respuesta a una cita técnica</a></li>
+                                <li><a href="#">Informe bibliográfico</a></li>
+                                <li><a href="#">Otras justificaciones médicas-regulatorias</a></li>
+                            </ul>
+                        </div>
+                    </details>
+                    <!-- Menú PNO 003 -->
+                    <details class="menu2 a3">
+                        <summary>Revisiones</summary>
+                        <div class="desplegable">
+                            <ul>
+                                <li><a href="#">Epidemiología</a></li>
+                                <li><a href="#">Características específicas de producto</a></li>
+                                <li><a href="#">Alertas sanitarias emitidas por autoridades regulatorias</a></li>
+                                <li><a href="#">Excipientes</a></li>
+                                <li><a href="#">Revisión de dossier</a></li>
+                                <li><a href="#">Publicidad</a></li>
+                                <li><a href="#">Revisión de expediente preclínico y clínico</a></li>
+                                <li><a href="#">Revisión de protocolo de investigación clínica</a></li>
+                                <li><a href="#">Otro tipo de revisiones</a></li>
+                                <li><a href="#">Recetas médicas</a></li>
+                            </ul>
+                        </div>
+                    </details>
+                    <!-- Menú PNO 004 -->
+                    <details class="menu2 a3">
+                        <summary>Comité de Moléculas Nuevas</summary>
+                        <div class="desplegable">
+                            <ul>
+                                <li><a href="#">Redacción de documentos para el CTD</a></li>
+                                <li><a href="#">Integración de CTD</a></li>
+                                <li><a href="#">Presentación para CMN</a></li>
+                            </ul>
+                        </div>
+                    </details>
+                    <!-- Menú PNO 005 + 006 -->
+                    <details class="menu2 a3">
+                        <summary>Textos regulados</summary>
+                        <div class="desplegable">
+                            <ul>
+                                <li><a href="#">México</a></li>
+                                <li><a href="#">Latinoamérica</a></li>
+                            </ul>
+                        </div>
+                    </details>
+                    <!-- Menú PNO 011 -->
+                    <details class="menu2 a3">
+                        <summary>Servicios a Marketing</summary>
+                        <div class="desplegable">
+                            <ul>
+                                <li><a href="#">Elaboración de material publicitario (incl. Fichas Técnicas y
+                                        Flashcards)</a></li>
+                                <li><a href="#">Monografía del producto</a></li>
+                                <li><a href="#">Capacitación a fuerza de ventas</a></li>
+                                <li><a href="#">Posicionamiento de medicamentos</a></li>
+                            </ul>
+                        </div>
+                    </details>
+                    <!-- PNO 012 -->
+                    <div class="a2">
+                        <a href="#">Advisory Board</a>
+                    </div>
+                    <!-- PNO 013 -->
+                    <div class="a2">
+                        <a href="#">Experiencia de uso</a>
+                    </div>
+                </div>
+            </details>
+            <!-- Fin primer <details> -->
+            <!-- Inicio segundo <details> = CIM -->
+            <details class="menu1">
+                <summary>Centro de Información de Medicamentos</summary>
+                <div class="desplegable a2">
+                    <ul>
+                        <!-- PNO 008 -->
+                        <li><a href="#">Resumen de estudios de intercambiabilidad</a></li>
+                        <!-- PNO 009 -->
+                        <li><a href="#">Solicitud de información especializada</a></li>
+                        <!-- PNO 010 -->
+                        <li><a href="#">Elaboración del Folleto del investigador</a></li>
+                    </ul>
+                </div>
+            </details>
+            <!-- Fin segundo <details> -->
+            <!-- Inicio tercer <details> = TRADUCCIONES -->
+            <!-- Menú PNO 007 -->
+            <details class="menu1">
+                <summary>Traducciones</summary>
+                <div class="desplegable a2">
+                    <ul>
+                        <li><a href="#">Traducciones inglés ↔ español (internas)</a></li>
+                        <li><a href="#">Traducciones para otros idiomas (externas)</a></li>
+                        <li><a href="#">Interpretación inglés ↔ español</a></li>
+                    </ul>
+                </div>
+            </details>
+            <!-- Fin tercer <details> -->
+        </div>
+        <!-- Fin <div> menú -->
+
+        <!-- Inicio <div> búsqueda -->
+        <div class="contenedorbus">
+            <p class="centrado">¿No encuentra lo que busca? Pruebe con la <span class="tooltip">búsqueda por
+                    servicio<span class="tooltiptext">La búsqueda no es sensible a mayúsculas. Puede filtrar servicios
+                        por nombre o abreviatura (<i>opportunity</i> / <i>oe</i>) o por Área solicitante (<i>asuntos
+                            regulatorios</i>, <i>marketing</i>).</span></span> o <span class="tooltip">comuníquese con
+                    nosotros<span class="tooltiptext">Información de contacto ↓</span></span>.</p>
+            <div id="contenedorbarrabus"><input type="text" id="barrabus" onkeyup="busqueda()"
+                    placeholder="Escriba una palabra clave, p. ej., 'revisión', 'ipp', 'opportunity', 'traducciones'">
+            </div>
+            <ul class="abus" id="items">
+                <li><a href="https://forms.gle/soZ5LvT7iEAMVXTC7">One Page (amplio y reducido)<span hidden>OP, OPA, OPR, evaluaciones, nuevos negocios,
+                            investigación y desarrollo, marketing</span></a></li>
+                <li><a href="https://forms.gle/soZ5LvT7iEAMVXTC7">Opportunity Evaluation<span hidden>OE, evaluaciones, nuevos negocios, investigación y
+                            desarrollo, marketing</span></a></li>
+                <li><a href="https://forms.gle/soZ5LvT7iEAMVXTC7">High level (evaluaciones exprés)<span hidden>comentario médico, epidemiología,
+                            evaluaciones, nuevos negocios</span></a>
+                </li>
+                <li><a href="#">Modificación de textos regulados<span hidden>justificaciones</span></a></li>
+                <li><a href="#">Modificación a las condiciones de venta o suministro al público<span
+                            hidden>justificaciones</span></a></li>
+                <li><a href="#">Modificación a la presentación y al contenido de los envases<span
+                            hidden>justificaciones</span></a></li>
+                <li><a href="#">Modificación por cambio de indicación terapéutica<span hidden>justificaciones</span></a>
+                </li>
+                <li><a href="#">Respuesta a una cita técnica<span hidden>justificaciones</span></a></li>
+                <li><a href="#">Informe bibliográfico<span hidden>justificaciones</span></a></li>
+                <li><a href="#">Otras justificaciones médicas-regulatorias</a></li>
+                <li><a href="#">Revisión epidemiológica<span hidden>epidemiología, revisiones</span></a></li>
+                <li><a href="#">Revisión de características específicas de producto<span hidden>revisiones,
+                            investigación y desarrollo, nuevos negocios</span></a></li>
+                <li><a href="#">Revisión de alertas sanitarias emitidas por autoridades regulatorias<span
+                            hidden>revisiones, nuevos negocios</span></a></li>
+                <li><a href="#">Revisión de excipientes<span hidden>revisiones, investigación y desarrollo, asuntos
+                            regulatorios</span></a></li>
+                <li><a href="#">Revisión de dossier<span hidden>revisiones, investigación y desarrollo, asuntos
+                            regulatorios, nuevos negocios</span></a></li>
+                <li><a href="#">Revisión de publicidad<span hidden>revisiones, marketing</span></a></li>
+                <li><a href="#">Revisión de expediente preclínico y clínico<span hidden>revisiones</span></a></li>
+                <li><a href="#">Revisión de protocolo de investigación clínica<span hidden>revisiones</span></a></li>
+                <li><a href="#">Otras revisiones médicas-regulatorias<span hidden>revisión, nuevos negocios, investigación y
+                            desarrollo, marketing</span></a></li>
+                <li><a href="#">Recetas médicas</a><span hidden>investigación y desarrollo</span></li>
+                <li><a href="#">Redacción de documentos para el CTD<span hidden>comité de moléculas nuevas, CMN, asuntos
+                            regulatorios</span></a></li>
+                <li><a href="#">Integración de CTD<span hidden>comité de moléculas nuevas, CMN, asuntos
+                            regulatorios</span></a></li>
+                <li><a href="#">Presentación para CMN<span hidden>comité de moléculas nuevas, CTD, asuntos
+                            regulatorios</span></a></li>
+                <li><a href="#">Textos regulados México<span hidden>IPP, instructivos, asuntos regulatorios</span></a>
+                </li>
+                <li><a href="#">Textos regulados Latinoamérica<span hidden>monografías, ficha técnica, folleto,
+                            instructivos, inserto, prospecto, latam, asuntos regulatorios</span></a></li>
+                <li><a href="#">Elaboración de material publicitario (incl. Fichas Técnicas y
+                        Flashcards)<span hidden>marketing</span></a></li>
+                <li><a href="#">Monografía del producto<span hidden>marketing</span></a></li>
+                <li><a href="#">Capacitación a fuerza de ventas<span hidden>marketing</span></a></li>
+                <li><a href="#">Posicionamiento de medicamentos<span hidden>marketing</span></a></li>
+                <li><a href="#">Advisory Board 012<span hidden>marketing</span></a></li>
+                <li><a href="#">Experiencia de uso 014<span hidden>marketing</span></a></li>
+                <li><a href="#">Resumen de estudios de intercambiabilidad<span hidden>CIM, centro, marketing, asuntos
+                            regulatorios</span></a></li>
+                <li><a href="#">Solicitud de información especializada<span hidden>CIM, centro</span></a></li>
+                <li><a href="#">Elaboración del Folleto del investigador<span hidden>CIM, centro</span></a></li>
+                <li><a href="#">Evaluación, selección y compra de material bibliográfico<span hidden>CIM,
+                            centro, farmacopea, bases de datos, libros</span></a></li>
+                <li><a href="#">Traducciones inglés ↔ español (servicio interno)<span hidden>CIM, centro</span></a></li>
+                <li><a href="#">Traducciones para otros idiomas (servicio externo)<span hidden>CIM, centro</span></a>
+                </li>
+                <li><a href="#">Interpretación inglés ↔ español<span hidden>CIM, centro</span></a></li>
+            </ul>
+            <!-- función para "buscar" -->
+            <script>
+                function busqueda() {
+                    var input, filter, ul, li, a, i;
+                    input = document.getElementById('barrabus');
+                    filter = input.value.toUpperCase();
+                    ul = document.getElementById("items");
+                    li = ul.getElementsByTagName('li');
+
+                    if (input.value.length == 0) {
+                        ul.style.display = "none";
+                        return;
+                    } else {
+                        ul.style.display = "block";
+                    }
+
+                    for (i = 0; i < li.length; i++) {
+                        a = li[i].getElementsByTagName("a")[0];
+                        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            li[i].style.display = "block";
+                        } else {
+                            li[i].style.display = "none";
+                        }
+                    }
+                }
+            </script>
+        </div>
+        <!-- Fin <div> búsqueda -->
+    </div>
+    <!-- Fin <div> principal -->
+
+    <!-- Inicio <div> pie de página -->
+    <div class="pp">
+        <details title="Área Médica Regulatoria">
+            <summary><span>MRE</span></summary>
+            <div class="desplegable">
+                <p>En el Área <u>M</u>édica <u>Re</u>gulatoria de CIDAT, S.A. de C.V., contamos con las Coordinaciones
+                    de Farmacología Clínica y de Soporte Médico para brindar servicios médico-regulatorios y
+                    médico-marketing, y con el Centro de Información de Medicamentos (CIM) para proporcionar servicios
+                    de búsqueda de información especializada, traducciones, resumen de bioequivalencia y manual del
+                    investigador.
+                </p>
+            </div>
+        </details>
+        <br>
+        <details title="Portal digital de servicios">
+            <summary><span>PDS</span></summary>
+            <div class="desplegable">
+                <p>A través del <u>P</u>ortal <u>d</u>igital de <u>s</u>ervicios del MRE, puede acceder fácilmente a
+                    nuestros formularios para iniciar el proceso de solicitud de nuestros servicios.</p>
+                <p><span class="tooltip">Recordar esta página<span class="tooltiptext">Para añadir
+                            esta página o alguno de los formularios a sus marcadores, presione simultáneamente las
+                            teclas Control + D.</span></span></p>
+                <p> Enlaces de interés: <a href="http://172.16.1.94:2018/" title="Portal corporativo"
+                        target="_blank">Neo Net</a> | <a href="http://172.16.1.94:2018/comedor-menu.asp"
+                        title="Consulta el menú del día" target="_blank">Menú del día</a> (<a
+                        href="http://maps.google.com/?q=garnachas" title="...o busque otras opciones ;o"
+                        target="_blank">¿no fue de su agrado?</a>)
+                </p>
+                <p>Última actualización: Junio 2023</p>
+            </div>
+        </details>
+
+        <br>
+
+        <details title="Información de contacto" id="contacto" open>
+            <summary><span>Contacto</span></summary>
+            <div class="desplegable">
+                <p>¿Tiene alguna duda o sugerencia? Comuníquese con nosotros por teléfono, correo electrónico o <a
+                        href="https://chat.google.com/room/AAAAPn9PtSQ?cls=7" title="Chatee con nosotros"
+                        target="_blank">por
+                        chat</a>.</p>
+                <p>Horario de atención: Lunes a viernes, de 08:00 a 17:00 horas.</p>
+                <P></p>
+                <p>Teléfono 55 5171 9005, 06.</p>
+                
+                    <p>→ Gerencia Médica Regulatoria: celular 55 3011 8990; lidia.velazquez@psicofarma.com.mx.
+                    </p>
+                    <p>→ Coordinación del CIM: roberto.cabrera@psicofarma.com.mx.</p>
+                    <p>→ Coordinación de Farmacología Clínica: mayra.alcala@psicofarma.com.mx.</p>
+                    <p>→ Coordinación de Soporte Médico: diego.camargo@psicofarma.com.mx.</p>
+                
+                <p>Av. Renato Leduc #89, Col. Bosques de Tetlameya, Alcaldía Coyoacán, C.P. 04730, Ciudad de México,
+                    México.</p>
+            </div>
+        </details>
+
+        <br>
+
+        <details title="Consulta el aviso de privacidad">
+            <summary><span>Aviso de confidencialidad</span></summary>
+            <div class="desplegable">
+                <p>La información proporcionada mediante los formularios está protegida en conformidad con la Cláusula
+                    décima del Contrato de prestación de servicios, celebrado entre CIDAT, S.A. de C.V. y Laboratorios
+                    Alpharma, S.A. de C.V. o
+                    Psicofarma, S.A. de C.V. o Neolpharma, S.A. de C.V.</p>
+            </div>
+        </details>
+    </div>
+    <!-- Fin <div> pie de página -->
+
+    <!-- Inicia <script> para desplear y animar <details>, copiado de: https://css-tricks.com/how-to-animate-the-details-element-using-waapi/-->
+    <script>
+
+        class Accordion {
+            constructor(el) {
+                // Store the <details> element
+                this.el = el;
+                // Store the <summary> element
+                this.summary = el.querySelector('summary');
+                // Store the <div class="desplegable"> element
+                this.desplegable = el.querySelector('.desplegable');
+
+                // Store the animation object (so we can cancel it if needed)
+                this.animation = null;
+                // Store if the element is closing
+                this.isClosing = false;
+                // Store if the element is expanding
+                this.isExpanding = false;
+                // Detect user clicks on the summary element
+                this.summary.addEventListener('click', (e) => this.onClick(e));
+            }
+            onClick(e) {
+                // Stop default behaviour from the browser
+                e.preventDefault();
+                // Add an overflow on the <details> to avoid content overflowing
+                this.el.style.overflow = 'hidden';
+                // Check if the element is being closed or is already closed
+                if (this.isClosing || !this.el.open) {
+                    this.open();
+                    // Check if the element is being openned or is already open
+                } else if (this.isExpanding || this.el.open) {
+                    this.shrink();
+                }
+            }
+            shrink() {
+                // Set the element as "being closed"
+                this.isClosing = true;
+                // Store the current height of the element
+                const startHeight = `${this.el.offsetHeight}px`;
+                // Calculate the height of the summary
+                const endHeight = `${this.summary.offsetHeight}px`;
+
+                // If there is already an animation running
+                if (this.animation) {
+                    // Cancel the current animation
+                    this.animation.cancel();
+                }
+                // Start a WAAPI animation
+                this.animation = this.el.animate({
+                    // Set the keyframes from the startHeight to endHeight
+                    height: [startHeight, endHeight]
+                }, {
+                    duration: 400,
+                    easing: 'ease-out'
+                });
+                // When the animation is complete, call onAnimationFinish()
+                this.animation.onfinish = () => this.onAnimationFinish(false);
+                // If the animation is cancelled, isClosing variable is set to false
+                this.animation.oncancel = () => this.isClosing = false;
+            }
+            open() {
+                // Apply a fixed height on the element
+                this.el.style.height = `${this.el.offsetHeight}px`;
+                // Force the [open] attribute on the details element
+                this.el.open = true;
+                // Wait for the next frame to call the expand function
+                window.requestAnimationFrame(() => this.expand());
+            }
+            expand() {
+                // Set the element as "being expanding"
+                this.isExpanding = true;
+                // Get the current fixed height of the element
+                const startHeight = `${this.el.offsetHeight}px`;
+                // Calculate the open height of the element (summary height + desplegable height)
+                const endHeight = `${this.summary.offsetHeight + this.desplegable.offsetHeight}px`;
+
+                // If there is already an animation running
+                if (this.animation) {
+                    // Cancel the current animation
+                    this.animation.cancel();
+                }
+                // Start a WAAPI animation
+                this.animation = this.el.animate({
+                    // Set the keyframes from the startHeight to endHeight
+                    height: [startHeight, endHeight]
+                }, {
+                    duration: 400,
+                    easing: 'ease-out'
+                });
+                // When the animation is complete, call onAnimationFinish()
+                this.animation.onfinish = () => this.onAnimationFinish(true);
+                // If the animation is cancelled, isExpanding variable is set to false
+                this.animation.oncancel = () => this.isExpanding = false;
+            }
+            onAnimationFinish(open) {
+                // Set the open attribute based on the parameter
+                this.el.open = open;
+                // Clear the stored animation
+                this.animation = null;
+                // Reset isClosing & isExpanding
+                this.isClosing = false;
+                this.isExpanding = false;
+                // Remove the overflow hidden and the fixed height
+                this.el.style.height = this.el.style.overflow = '';
+            }
+        }
+        document.querySelectorAll('details').forEach((el) => {
+            new Accordion(el);
+        });
+    </script>
+    <!-- Fin script para desplegar <details> -->
+
+
+</body>
+
+</html>
